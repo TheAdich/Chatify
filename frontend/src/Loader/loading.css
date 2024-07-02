@@ -1,0 +1,45 @@
+.loading-spinner {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    top:50%;
+}
+
+.loading-spinner > div {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: blue; /* Change color here */
+    animation: loading-animation 1.5s infinite ease-in-out;
+}
+
+@keyframes loading-animation {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.bubble1 {
+    left: 0;
+}
+
+.bubble2 {
+    left: 20px;
+    animation-delay: 0.5s;
+}
+
+.bubble3 {
+    left: 40px;
+    animation-delay: 1s;
+}

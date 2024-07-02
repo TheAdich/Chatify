@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    color:white
+}
+.chat_window{
+    width:100%;
+    height:90%;
+    background-color:#1d1f2b;
+    font-family: "Nunito";
+    display: flex;
+    overflow-x: hidden;
+}
+
+.chat_header{
+    width:100%;
+    height:14%;
+    display: flex;
+    align-items: center;
+    background-color:#1d1f2b;
+    font-family: "Nunito";
+}
+.chat_name_logo{
+    display: flex;
+    align-items: center;
+    width:30%;
+}
+
+.chat_logo{
+    width:3rem;
+    height:3rem;
+    border-radius: 50%;
+    animation: rotate 5s linear infinite;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg); 
+    }
+    to {
+        transform: rotate(360deg); 
+    }
+}
+.chat_name{
+    font-size: 1.7rem;
+    margin-left: 1rem;
+    color:white
+}
+.chat_toolbar{
+    margin-right: 2rem;
+    width:70%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.create_grp_btn{
+    background-color: green;
+    font-size: 1rem;
+    outline:none;
+    border:none;
+    border-radius: 0.4rem;
+    padding:0.4rem 0.8rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.create_grp_btn:hover{
+    background-color: #252837;
+    
+}
+.bell{
+    width:3vw;
+    height:3vw;
+    border-radius: 50%;
+}
+.username{
+    font-size: 1.2rem;
+    margin:0 1rem;
+}
+.logout{
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.sidebar_section{
+    padding-top: 2rem;
+    width:30vw;
+    height:90%;
+    background: url(../assets/sidebar.jpg) center/cover no-repeat;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.sidebar_section::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .sidebar_section::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .sidebar_section::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 3px solid transparent;
+  }
+  
+  /* Optional: Hover effect for better UX */
+  .sidebar_section:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+.searchIcon{
+    width:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+.all_users{
+    width:100%;
+    height:fit-content;
+    margin-top: 1rem;
+}
+.sidebar_user{
+    display: flex;
+    width:95%;
+    margin: 0 auto;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.user_attribute{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width:70%;
+    background-color: #303345;
+    border-radius: 10px;
+    padding:0.2rem 0.8rem;
+    margin-left: 0.5rem;
+}
+
+
+.user_attribute:hover{
+    background: #6586ff;
+}
+
+.status{
+    width:20%;
+    text-align: right;
+}
+
+.user_chat_window{
+    width:70vw;
+    height:93%;
+    margin-left:2rem;
+    background: url('../assets/chatbox.jpg') center/cover no-repeat;
+}
+.user_chat_header{
+    display: flex;
+    height:8%;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+.chat_display_section {
+    position: relative;
+    padding: 1rem 1rem;
+    width: 95%;
+    margin: 0px auto;
+    height: 75%;
+    border: 0.4px solid white;
+    border-radius: 10px;
+    overflow-y: scroll;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* For Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.chat_display_section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat_display_section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat_display_section::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.chat_display_section::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.chat_type_box{
+    margin:0px auto;
+    width:95%;
+    height:10%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.msg_file_choose{
+    background-color: #1d1f2b;
+    width:10vw;
+    margin-left: 1vw;
+    cursor: pointer;
+}
+.get_image_view{
+    position: absolute;
+    top:-10vh;
+
+}
+
+.chat_type_box .msg_post{
+    width:88%;
+    height:70%;
+    outline: none;
+    padding:0.3rem 1rem;
+    font-size: 1rem;
+    font-family: "Nunito";
+    background-color: #303345;
+    border-radius: 10px;
+    border:none;
+    margin-top: 0.7rem;
+}
+.post_btn{
+    margin-left: 2%;
+    width:10%;
+    height:60%;
+    background-color: #303345;
+    color:white;
+    font-size: 1rem;
+    font-family: "Nunito";
+    border-radius: 0.4rem;
+    outline: none;
+    padding:0.3rem 0;
+    border:none;
+    cursor: pointer;
+    margin-top: 0.7rem;
+}
+.post_btn:hover{
+    background-color: #1d1f2b;
+}
+.msg_box{
+  height: fit-content;  
+  background-color: #6586ff;
+  width:45%;
+  margin-bottom:1rem;
+  padding:0.2rem 1rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+}
+.msg_box_senderName{
+    text-align: left;
+}
+.msg_box_message{
+    word-break: break-all;
+    white-space: normal;
+
+}
+.msg_box_time{
+    font-size: 0.6rem;
+}
+.userSearchBar{
+    width:100%;
+}
+.userSearchBar>input{
+    width:90%;
+    font-size: 1rem;
+    padding:0.5rem 0.4rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border:none;
+    outline: none;
+    color:black;
+}
+.result_section{
+    margin-top: 1rem;
+    width:100%;
+    padding:0.5rem 0.5rem;
+    height:70%;
+}
+.result_section::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .result_section::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .result_section::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 3px solid transparent;
+  }
+  
+  /* Optional: Hover effect for better UX */
+  .result_section:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+.resultedUser{
+    width:100%;
+    height:fit-content;
+    padding:1rem 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #303345;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+.resultedUser:hover{
+    background: #6586ff;
+}
+.resultedUser h2{
+    font-size: 1.4rem;
+}
+.resultedUser button{
+    color:white;
+    background-color: green;
+    width: fit-content;
+    height: fit-content;
+    font-size: 0.8rem;
+    padding:0.2rem 1rem;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.resultedUser button:hover{
+    background-color: #252837;
+}
+
+.edit_grp_btn{
+    margin-left: 2rem;
+    background-color: green;
+    font-size: 1rem;
+    outline:none;
+    border:none;
+    border-radius: 1rem;
+    padding:0.4rem 0.8rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+}
+.edit_send_btn{
+    margin-left: 0rem;
+    background-color: green;
+    font-size: 1rem;
+    outline:none;
+    border:none;
+    border-radius: 0.5rem;
+    padding:0.2rem 0.8rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+}
+
+.edit_send_btn:hover{
+    background-color: #252837;
+}
+.add_user_box{
+    background: url('../assets/sidebar.jpg') center/cover no-repeat;
+    margin-right: 2rem;
+}
