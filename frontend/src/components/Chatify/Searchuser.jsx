@@ -33,7 +33,7 @@ const Searchuser = ({ searchBoxstyle,user }) => {
     }
 
     useEffect(() => {
-        if (query.length > 0) {
+        if (query.length >= 0) {
             const fetchData = async () => {
                 try {
                     const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/user/find?q=${query}`);

@@ -33,11 +33,12 @@ const Chat =  () => {
       setSearchBoxstyle({
         'display': 'block',
         'width': '25%',
-        'height': '100%',
+        'height': '90%',
         'margin': '0px auto',
         'margin-left':'1.5rem',
         'padding':'0.2rem 0.5rem',
         'background':'#252837',
+        'overflow-y':'auto'
       });
     } else {
       setSearchBoxstyle({ 'display': 'none' });

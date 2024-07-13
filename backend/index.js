@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(cors({
-    origin: ['http://localhost:3000','https://chat-app-frontend-rho-jet.vercel.app'],
+    origin: ['http://localhost:3000','https://chat-app-frontend-rho-jet.vercel.app','https://chatify-henna.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }))
@@ -47,7 +47,7 @@ app.get("/api/getkey", (req, res) =>
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:3000','https://chat-app-frontend-rho-jet.vercel.app'],
+        origin: ['http://localhost:3000','https://chat-app-frontend-rho-jet.vercel.app','https://chatify-henna.vercel.app'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }

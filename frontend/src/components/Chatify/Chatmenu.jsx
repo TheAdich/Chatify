@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { v4 } from "uuid";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 const Chatmenu = ({ chat, getId, user, socket }) => {
     const admin = user;
     // console.log(admin);
@@ -160,7 +161,6 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
         }
         setmsg("");
     }
-    const handle = useFullScreenHandle();
 
     return (
         <div className='user_chat_window'>
@@ -179,14 +179,15 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
                 {loading ? <Loading /> :
                     data && displayMsg.length > 0 ?
                         displayMsg.map((e, ind) => (
+                            <PhotoProvider>
                             <div key={ind} className='msg_box' style={admin.name === e.sender.name ? { alignSelf: 'flex-end' } : {}}>
                                 <p className='msg_box_senderName'>{e.sender.name}</p>
                                 {!e.message ? (
                                     e.msgType === 'media' ? (
-                                        <div style={{ cursor: 'pointer' }} onClick={handle.enter}>
-                                            <FullScreen handle={handle}>
+                                        <div style={{ cursor: 'pointer' }} >
+                                            <PhotoView src={e.content}>
                                             <img src={e.content} style={{ display: 'block', width: '100%', height: '100%' }} alt="Media" />
-                                            </FullScreen>
+                                            </PhotoView>
                                             <p style={{ backgroundColor: '#6586ff' }}>Media: Click to View</p>
                                         </div>
                                     ) : (
@@ -198,7 +199,7 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
                                     )
                                 ) : null}
                                 <p className='msg_box_time'>{formatDateTime(e.createdAt)}</p>
-                            </div>
+                            </div></PhotoProvider>
                         )) : <div className='msg_box'><p>No messages yet</p></div>
                 }
                 {/*  */}
