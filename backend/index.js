@@ -54,8 +54,10 @@ const io = new Server(server, {
 })
 
 server.listen(port, () => {
-    console.log('Server is running!');
+    console.log(`Server is running! ${port}`);
 })
+
+const userMessageCounts=new Map();
 
 io.on('connection', (socket) => {
 
@@ -69,6 +71,7 @@ io.on('connection', (socket) => {
     //Reading a message then sending it
     socket.on('newMessage',({msg,room})=>{
         //console.log(msg,room);
+        
         socket.to(room).emit('getMessage',msg);
     })
 

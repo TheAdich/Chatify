@@ -9,6 +9,16 @@ const genrateToken = (id) => {
     })
 }
 
+const debounce = (cb, delay = 1500) => {
+    let timer;
+    return function(...args){
+        clearTimeout(timer);
+        timer=setTimeout(()=>{
+            cb.apply(this,args);
+        },delay);
+    }
+}
+
 async function hashPassword(password) {
     try {
         const saltRounds = 10; // Number of salt rounds to use
@@ -92,7 +102,7 @@ const login = async (req, res) => {
 
 }
 
-const findUser = async (req, res) => {
+const findUser = debounce(async (req, res) => {
     const search = req.query.q;
     try {
         const users = await User.find({
@@ -106,7 +116,7 @@ const findUser = async (req, res) => {
     catch (err) {
         res.status(400).send(err);
     }
-}
+})
 
 const updateuser = async (req, res) => {
     const { name, email, bio, pic } = req.body;

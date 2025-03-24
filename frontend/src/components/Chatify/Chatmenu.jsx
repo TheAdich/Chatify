@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { v4 } from "uuid";
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 const Chatmenu = ({ chat, getId, user, socket }) => {
@@ -23,6 +24,8 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [displayMsg, setDisplayMsg] = useState([]);
     const chatDisplayRef = useRef(null);
+    const [throttlingError, setThrottlingError] = useState(false);
+    const [MsgTimeStamps, setMsgTimeStamps] = useState([]);
     //firebase functionality 
     const uploadFile = () => {
         if (file == null) return;
@@ -72,6 +75,7 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
             scrollToBottom();
 
         })
+
         return () => {
             socket.off('getMessage');
         }
@@ -110,6 +114,8 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
     const scrollToBottom = () => {
         if (chatDisplayRef.current) {
             chatDisplayRef.current.scrollTop = chatDisplayRef.current.scrollHeight;
+            chatDisplayRef.current.scrollIntoView({ behavior: 'smooth' });
+
         }
     };
 
@@ -120,9 +126,32 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
         else alert('Only admin can edit grp details!');
     }
 
+    const MSG_LIMIT = 5;
+    const coolDownPeriod = 10000
+
 
     const postMessage = async (e) => {
         e.preventDefault();
+        const now = Date.now();
+        setMsgTimeStamps(MsgTimeStamps.filter((e) => now - e <= coolDownPeriod));
+        console.log(MsgTimeStamps);
+        if (MsgTimeStamps.length >= MSG_LIMIT) {
+            setThrottlingError('true');
+            toast.warn('Rate Limit Exceed! Try again after 5-10 sec', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                });
+            return;
+        }
+        setMsgTimeStamps((prev) => [...prev, now]);
+        setThrottlingError(false);
         function checkUrlOrText(msg) {
             var urlRegex = /(https?:\/\/[^\s]+)/g;
             var firebaseStorageRegex = /https:\/\/firebasestorage\.googleapis\.com\/[^\s]+/g;
@@ -163,13 +192,15 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
     }
 
     return (
+
         <div className='user_chat_window'>
+            {throttlingError ? <ToastContainer/>:''}
             <div className='user_chat_header'>
                 <img src={data ? data.pic : profile} style={{ width: '3.5vw', "marginLeft": "1rem", "borderRadius": "50%" }}></img>
                 <p style={{ "marginLeft": "1rem", "fontSize": "1.2rem" }}>{data ? data.chatName : "Username"}</p>
                 {data && data.isGroupChat === true ? <button className='edit_grp_btn' onClick={() => redirectTorename(data)}>Edit Group info</button> : ""}
             </div>
-            {getId !== undefined ? <div style={{ marginLeft: '1rem', marginBottom: '0.4rem' , display:'flex'}}>
+            {getId !== undefined ? <div style={{ marginLeft: '1rem', marginBottom: '0.4rem', display: 'flex' }}>
                 <input type='file' name='photo' onChange={(e) => setFile(e.target.files[0])}></input>
                 <button type='submit' onClick={uploadFile} className='edit_send_btn'>Upload</button>
                 <p>Support only images!</p>
@@ -180,26 +211,26 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
                     data && displayMsg.length > 0 ?
                         displayMsg.map((e, ind) => (
                             <PhotoProvider>
-                            <div key={ind} className='msg_box' style={admin.name === e.sender.name ? { alignSelf: 'flex-end' } : {}}>
-                                <p className='msg_box_senderName'>{e.sender.name}</p>
-                                {!e.message ? (
-                                    e.msgType === 'media' ? (
-                                        <div style={{ cursor: 'pointer' }} >
-                                            <PhotoView src={e.content}>
-                                            <img src={e.content} style={{ display: 'block', width: '100%', height: '100%' }} alt="Media" />
-                                            </PhotoView>
-                                            <p style={{ backgroundColor: '#6586ff' }}>Media: Click to View</p>
-                                        </div>
-                                    ) : (
-                                        e.msgType === 'text' ? (
-                                            <p className='msg_box_message'>{e.content}</p>
+                                <div key={ind} className='msg_box' style={admin.name === e.sender.name ? { alignSelf: 'flex-end' } : {}}>
+                                    <p className='msg_box_senderName'>{e.sender.name}</p>
+                                    {!e.message ? (
+                                        e.msgType === 'media' ? (
+                                            <div style={{ cursor: 'pointer' }} >
+                                                <PhotoView src={e.content}>
+                                                    <img src={e.content} style={{ display: 'block', width: '100%', height: '100%' }} alt="Media" />
+                                                </PhotoView>
+                                                <p style={{ backgroundColor: '#6586ff' }}>Media: Click to View</p>
+                                            </div>
                                         ) : (
-                                            <a href={e.content} className='msg_box_message'>{e.content}</a>
+                                            e.msgType === 'text' ? (
+                                                <p className='msg_box_message'>{e.content}</p>
+                                            ) : (
+                                                <a href={e.content} className='msg_box_message'>{e.content}</a>
+                                            )
                                         )
-                                    )
-                                ) : null}
-                                <p className='msg_box_time'>{formatDateTime(e.createdAt)}</p>
-                            </div></PhotoProvider>
+                                    ) : null}
+                                    <p className='msg_box_time'>{formatDateTime(e.createdAt)}</p>
+                                </div></PhotoProvider>
                         )) : <div className='msg_box'><p>No messages yet</p></div>
                 }
                 {/*  */}
