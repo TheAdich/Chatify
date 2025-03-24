@@ -114,7 +114,7 @@ const Chatmenu = ({ chat, getId, user, socket }) => {
     const scrollToBottom = () => {
         if (chatDisplayRef.current) {
             chatDisplayRef.current.scrollTop = chatDisplayRef.current.scrollHeight;
-            chatDisplayRef.current.scrollIntoView({ behavior: 'smooth' });
+           
 
         }
     };
