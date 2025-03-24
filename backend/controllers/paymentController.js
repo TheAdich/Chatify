@@ -34,7 +34,7 @@ const paymentVerification = async (req, res) => {
     });
 
     res.redirect(
-      `https://chat-app-frontend-rho-jet.vercel.app/chat`
+      `https://chatify-henna.vercel.app/chat`
     );
   } else {
     res.status(400).json({
