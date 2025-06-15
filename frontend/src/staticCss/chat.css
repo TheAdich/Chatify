@@ -1,11 +1,158 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
-    color:white
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,800;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* All text remains white as requested */
+* {
+    color: white;
 }
+
+/* --- Main Pop-up Container for Adding Users --- */
+.add_user_popUp {
+    /* Similar background to the sidebar/chat window for consistency */
+    background: linear-gradient(rgba(26, 32, 44, 0.9), rgba(26, 32, 44, 0.9)); /* Dark blue-gray overlay */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border-radius: 10px;
+    padding: 1.5rem; /* Sufficient padding inside the pop-up */
+    width: 90%; /* Adjust as needed, or set max-width */
+    max-width: 450px; /* Example max-width for pop-up */
+    /* Position for a modal-like behavior (requires parent positioning, e.g., fixed/absolute) */
+    position: absolute; /* Assuming it's inside a relatively positioned parent or body */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100; /* Ensure it's on top of other content */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4); /* Deeper shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    height: auto; /* Adjust height based on content */
+    max-height: 80vh; /* Prevent it from getting too tall on smaller screens */
+}
+
+/* --- User Search Bar within the Pop-up --- */
+.userSearchBar {
+    width: 100%;
+    margin-bottom: 1rem; /* Space between search bar and results */
+}
+
+.userSearchBar > input {
+    width: 100%; /* Full width within its container */
+    font-size: 1rem;
+    padding: 0.8rem 1rem; /* Increased padding for better feel */
+    border-radius: 12px; /* More rounded corners like the reference */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    outline: none;
+    /* Dark gray input background, matching the glassmorphism input style */
+    background: rgba(0, 0, 0, 0.2);
+    color: white; /* Ensure text is white */
+    /* Subtle inset shadow for depth, matching reference */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease, border 0.3s ease; /* Smooth transition for focus */
+}
+
+.userSearchBar > input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Lighter placeholder text */
+}
+
+.userSearchBar > input:focus {
+    border: 1px solid rgba(255, 255, 255, 0.5); /* White border on focus */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* White glow on focus */
+}
+
+
+/* --- Result Section for Users --- */
+.result_section {
+    flex-grow: 1; /* Allow it to take available space */
+    width: 100%;
+    padding-right: 0.5rem; /* Space for scrollbar */
+    height: auto; /* Let content define height initially */
+    max-height: calc(100% - 70px); /* Adjust max-height if the input field takes 70px */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    margin-top: 0; /* Already accounted for by userSearchBar margin-bottom */
+    display: flex; /* Flex container for user items */
+    flex-direction: column;
+    gap: 0.8rem; /* Space between resultedUser items */
+}
+
+/* Custom Scrollbar for Result Section (Webkit) */
+.result_section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.result_section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.result_section::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle white for scrollbar */
+    border-radius: 10px;
+    border: 3px solid transparent;
+}
+
+/* Optional: Hover effect for better UX */
+.result_section:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Individual Resulted User Card --- */
+.resultedUser {
+    width: 100%;
+    height: fit-content;
+    padding: 0.8rem 1rem; /* Slightly reduced padding for compactness */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Dark gray background with subtle gradient, matching user_attribute */
+    background: linear-gradient(to right, #374151, #303642);
+    border-radius: 1rem;
+    /* No margin-bottom here, using gap on parent .result_section instead */
+    /* Subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+}
+
+.resultedUser:hover {
+    /* Slightly lighter dark gray with subtle glow on hover */
+    background: linear-gradient(to right, #4a5568, #3f485a);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+.resultedUser h2 {
+    font-size: 1.2rem; /* Slightly smaller for better fit */
+    margin: 0; /* Remove default margin */
+    white-space: nowrap; /* Prevent name from wrapping */
+    overflow: hidden; /* Hide overflow if name is too long */
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+    color: white; /* Ensure text is white */
+}
+
+.resultedUser button {
+    color: white; /* Text remains white */
+    /* Subtle light to dark gray gradient for the button */
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
+    width: fit-content;
+    height: fit-content;
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem; /* Adjusted padding */
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    /* Subtle box shadow for depth */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.resultedUser button:hover {
+    /* Darker gradient on hover */
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
+}
+
+/* Existing styles from your previous CSS for context, ensures no changes to them */
 .chat_window{
     width:100%;
     height:90%;
-    background-color:#1d1f2b;
+    background: linear-gradient(to bottom, #1a202c, #0a0a0a);
     font-family: "Nunito";
     display: flex;
     overflow-x: hidden;
@@ -16,8 +163,9 @@
     height:14%;
     display: flex;
     align-items: center;
-    background-color:#1d1f2b;
+    background: linear-gradient(to bottom, #1a202c, #0a0a0a);
     font-family: "Nunito";
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .chat_name_logo{
     display: flex;
@@ -30,13 +178,14 @@
     height:3rem;
     border-radius: 50%;
     animation: rotate 5s linear infinite;
+    background-color: #4a5568;
 }
 @keyframes rotate {
     from {
-        transform: rotate(0deg); 
+        transform: rotate(0deg);
     }
     to {
-        transform: rotate(360deg); 
+        transform: rotate(360deg);
     }
 }
 .chat_name{
@@ -52,7 +201,7 @@
     align-items: center;
 }
 .create_grp_btn{
-    background-color: green;
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
     font-size: 1rem;
     outline:none;
     border:none;
@@ -61,15 +210,16 @@
     margin-right: 0.8rem;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 .create_grp_btn:hover{
-    background-color: #252837;
-    
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
 }
 .bell{
     width:3vw;
     height:3vw;
     border-radius: 50%;
+    background-color: #6b7280;
 }
 .username{
     font-size: 1.2rem;
@@ -78,35 +228,41 @@
 .logout{
     font-size: 1.2rem;
     cursor: pointer;
+    color: #ef4444;
+    transition: color 0.3s ease;
+}
+.logout:hover {
+    color: #dc2626;
 }
 .sidebar_section{
     padding-top: 2rem;
     width:30vw;
     height:90%;
-    background: url(../assets/sidebar.jpg) center/cover no-repeat;
+    background: linear-gradient(rgba(26, 32, 44, 0.9), rgba(26, 32, 44, 0.9)), url(../assets/photo-1718202248160-59558af70521.avif) center/cover no-repeat;
     backdrop-filter: blur(10px);
     border-radius: 10px;
     overflow-x: hidden;
     overflow-y: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 .sidebar_section::-webkit-scrollbar {
     width: 8px;
-  }
-  
-  .sidebar_section::-webkit-scrollbar-track {
+}
+
+.sidebar_section::-webkit-scrollbar-track {
     background: transparent;
-  }
-  
-  .sidebar_section::-webkit-scrollbar-thumb {
-    background-color: transparent;
+}
+
+.sidebar_section::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     border: 3px solid transparent;
-  }
-  
-  /* Optional: Hover effect for better UX */
-  .sidebar_section:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
+}
+
+/* Optional: Hover effect for better UX */
+.sidebar_section:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
 .searchIcon{
     width:100%;
     height:fit-content;
@@ -135,27 +291,31 @@
     align-items: flex-end;
     justify-content: center;
     width:70%;
-    background-color: #303345;
+    background: linear-gradient(to right, #374151, #303642);
     border-radius: 10px;
     padding:0.2rem 0.8rem;
     margin-left: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 
 .user_attribute:hover{
-    background: #6586ff;
+    background: linear-gradient(to right, #4a5568, #3f485a);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
 }
 
 .status{
     width:20%;
     text-align: right;
+    color: #d1d5db;
 }
 
 .user_chat_window{
     width:70vw;
     height:93%;
     margin-left:2rem;
-    background: url('../assets/chatbox.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(26, 32, 44, 0.8), rgba(26, 32, 44, 0.8)), url('../assets/photo-1611606063065-ee7946f0787a.avif') center/cover no-repeat;
+    border-radius: 10px;
 }
 .user_chat_header{
     display: flex;
@@ -163,6 +323,8 @@
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 0.3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.5rem;
 }
 .chat_display_section {
     position: relative;
@@ -170,11 +332,12 @@
     width: 95%;
     margin: 0px auto;
     height: 75%;
-    border: 0.4px solid white;
+    border: 0.4px solid rgba(255, 255, 255, 0.02);
     border-radius: 10px;
     overflow-y: scroll;
     scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* For Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent; /* For Firefox */
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* For Webkit browsers (Chrome, Safari) */
@@ -187,14 +350,14 @@
 }
 
 .chat_display_section::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 .chat_display_section::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .chat_type_box{
@@ -207,15 +370,24 @@
 }
 
 .msg_file_choose{
-    background-color: #1d1f2b;
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
     width:10vw;
     margin-left: 1vw;
     cursor: pointer;
+    border-radius: 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.msg_file_choose:hover {
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
 }
 .get_image_view{
     position: absolute;
     top:-10vh;
-
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .chat_type_box .msg_post{
@@ -225,16 +397,18 @@
     padding:0.3rem 1rem;
     font-size: 1rem;
     font-family: "Nunito";
-    background-color: #303345;
+    background-color: #374151;
     border-radius: 10px;
     border:none;
     margin-top: 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.01);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .post_btn{
     margin-left: 2%;
     width:10%;
     height:60%;
-    background-color: #303345;
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
     color:white;
     font-size: 1rem;
     font-family: "Nunito";
@@ -244,21 +418,24 @@
     border:none;
     cursor: pointer;
     margin-top: 0.7rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 .post_btn:hover{
-    background-color: #1d1f2b;
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
 }
 .msg_box{
-  height: fit-content;  
-  background-color: #6586ff;
-  width:45%;
-  margin-bottom:1rem;
-  padding:0.2rem 1rem;
-  border-radius: 0.3rem;
-  font-size: 0.9rem;
+    height: fit-content;
+    background-color: #4a5568;
+    width:45%;
+    margin-bottom:1rem;
+    padding:0.2rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 .msg_box_senderName{
     text-align: left;
+    color: #d1d5db;
 }
 .msg_box_message{
     word-break: break-all;
@@ -267,8 +444,10 @@
 }
 .msg_box_time{
     font-size: 0.6rem;
+    color: #9ca3af;
 }
-.userSearchBar{
+/* User Search Bar section is now specifically for the pop-up */
+/* .userSearchBar{
     width:100%;
 }
 .userSearchBar>input{
@@ -280,8 +459,9 @@
     border:none;
     outline: none;
     color:black;
-}
-.result_section{
+} */
+/* Result Section is now specifically for the pop-up */
+/* .result_section{
     margin-top: 1rem;
     width:100%;
     padding:0.5rem 0.5rem;
@@ -289,24 +469,24 @@
 }
 .result_section::-webkit-scrollbar {
     width: 8px;
-  }
-  
-  .result_section::-webkit-scrollbar-track {
+}
+
+.result_section::-webkit-scrollbar-track {
     background: transparent;
-  }
-  
-  .result_section::-webkit-scrollbar-thumb {
+}
+
+.result_section::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 10px;
     border: 3px solid transparent;
-  }
-  
-  /* Optional: Hover effect for better UX */
-  .result_section:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
+}
 
-.resultedUser{
+.result_section:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+} */
+
+/* Resulted User is now specifically for the pop-up */
+/* .resultedUser{
     width:100%;
     height:fit-content;
     padding:1rem 0.8rem;
@@ -338,11 +518,11 @@
 }
 .resultedUser button:hover{
     background-color: #252837;
-}
+} */
 
 .edit_grp_btn{
     margin-left: 2rem;
-    background-color: green;
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
     font-size: 1rem;
     outline:none;
     border:none;
@@ -350,10 +530,14 @@
     padding:0.4rem 0.8rem;
     margin-right: 0.8rem;
     cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.edit_grp_btn:hover{
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
 }
 .edit_send_btn{
     margin-left: 0rem;
-    background-color: green;
+    background: linear-gradient(to bottom, #4a4a4a, #2b2b2b);
     font-size: 1rem;
     outline:none;
     border:none;
@@ -361,12 +545,14 @@
     padding:0.2rem 0.8rem;
     margin-right: 0.8rem;
     cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .edit_send_btn:hover{
-    background-color: #252837;
+    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
 }
 .add_user_box{
-    background: url('../assets/sidebar.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(26, 32, 44, 0.9), rgba(26, 32, 44, 0.9)), url('../assets/sidebar.jpg') center/cover no-repeat;
     margin-right: 2rem;
+    border-radius: 10px;
 }

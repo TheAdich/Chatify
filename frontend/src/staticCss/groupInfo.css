@@ -1,76 +1,139 @@
-.create_group_section{
-    padding-left: 1rem;
-    display: flex;
-    height:100%;
-    overflow: hidden;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,800;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
 }
-.add_user_box{
-    width:30%;
-    height:100%;
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
-.add_user_popUp{
-    width:100%;
-    height:100%;
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
-.group_info_details{
-    background: url('../assets/add_remove_grp.jpg') center/cover no-repeat;
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
-.group_info_details{
-    width:70%;
-    height:100%; 
+
+/* Animation keyframes */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.group_info_form{
-    height:70vh;
-    margin-top: 2rem;
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
-.input_group_name{
-    color:black;
-    font-size: 1.3rem;
-    padding:0.4rem 0.8rem;
-    outline:none;
-    border: none;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
+
+/* Utility classes for transitions and transforms */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.input_submit{
-    margin-left: 2rem;
-    background-color: green;
-    font-size: 1.1rem;
-    outline:none;
-    border:none;
-    border-radius: 1rem;
-    padding:0.4rem 0.8rem;
-    margin-right: 0.8rem;
-    cursor: pointer;
+
+.duration-300 {
+  transition-duration: 300ms;
 }
-.members_list{
-    width:80%;
-    height:80%;
-    border-radius: 1rem;
-    margin-top: 1rem;
-    background: rgba(219, 218, 218, 0.15);
-    backdrop-filter: blur(2px);
-    padding:1rem 1rem; 
+
+.duration-500 {
+  transition-duration: 500ms;
 }
-.members_list::-webkit-scrollbar {
-    width: 8px;
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+/* Focus styles for accessibility */
+input:focus,
+button:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .grid.lg\:grid-cols-2 {
+    grid-template-columns: 1fr;
   }
   
-  .members_list::-webkit-scrollbar-track {
-    background: transparent;
+  .text-3xl.md\:text-4xl {
+    font-size: 2.25rem;
   }
   
-  .members_list::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 10px;
-    border: 3px solid transparent;
+  .p-4.md\:p-6 {
+    padding: 1rem;
+  }
+}
+
+/* Backdrop blur fallback for older browsers */
+@supports not (backdrop-filter: blur(10px)) {
+  .backdrop-blur-lg {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
-  /* Optional: Hover effect for better UX */
-  .members_list:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
+  .border-white\/10 {
+    border-color: rgba(255, 255, 255, 0.2);
   }
-.grp_user_name{
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
+  
+  .text-gray-400 {
+    color: #d1d5db;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .transition-all,
+  .duration-300,
+  .duration-500 {
+    transition: none;
+  }
+  
+  .animate-spin {
+    animation: none;
+  }
+  
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .bg-gradient-to-br {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .text-white {
+    color: black !important;
+  }
+  
+  .bg-white\/5,
+  .bg-white\/10 {
+    background: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+  }
 }

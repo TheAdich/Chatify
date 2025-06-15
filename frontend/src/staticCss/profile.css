@@ -1,92 +1,161 @@
+/* Wrapper for the entire profile section view */
 .profile_section_wrapper {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2;
-    overflow:hidden;
+    overflow: auto; /* Changed to auto to allow scrolling if content overflows */
+    padding: 40px 0; /* Add some padding for better spacing on smaller screens */
+    bottom:0rem;
 }
 
+/* The main frosted glass container for the profile */
 .profile_section {
     width: 80%;
-    height: 80%;
+    max-width: 900px; /* Added max-width for better control on large screens */
+    min-height: 90%;
+    height: fit-content; /* Allow height to grow with content */
     margin: 0 auto;
-    background-color: rgba(48, 51, 69, 0.8); /* Adjust the opacity to control the frosted effect */
-    border-radius: 10px; /* Optional: Add rounded corners */
-    padding: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Apply a shadow effect */
-    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    /* Using the same "dark glass" effect from the login form for consistency */
+    background: rgba(10, 10, 10, 0.25);
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    /* Consistent shadow style with a white "aura" on hover */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: #ffffff; /* Ensure all text inside is white by default */
 }
 
-.user_wrapper{
+/* Wrapper for the user avatar and details */
+.user_wrapper {
     display: flex;
-    align-items: center;
-    width:100%;
-    height:fit-content;
+    align-items: flex-start; /* Align items to the top */
+    width: 100%;
+    height: fit-content;
     margin-top: 1rem;
+    flex-wrap: wrap; /* Allow sections to wrap on smaller screens */
+    padding-left: 2rem;
 }
 
-.left_section{
+/* Left section containing avatar and action button */
+.left_section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width:20%;
-    margin-left: 2rem;
-    margin-right: 2rem;
-}
-.left_section button{
-    align-self: center;
-    width:fit-content;
-    height: fit-content;
-    padding:0.4rem 0.5rem;
-    background-color: green;
-    margin-top:1rem;
-    font-size: 1.1rem;
-    outline:none;
-    border:none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-}
-.left_section button:hover{
-    background-color: rgb(86, 105, 209);
-}
-.right_section{
-    width:70%;
-}
-.right_section input, textarea{
-    font-size: 1rem;
-    padding:0.5rem 0.5rem;
-    outline:none;
-    border:none;
-    border-radius: 5px;
-}
-.updateProfileBtn{
-    width:fit-content;
-    height: fit-content;
-    padding:0.4rem 0.5rem;
-    background-color: green;
-    margin-top:1rem;
-    font-size: 1.1rem;
-    outline:none;
-    border:none;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    left:80%;
+    width: 20%;
+    min-width: 150px; /* Ensure it doesn't get too squished */
+    margin-right: 2.5rem;
 }
 
+/* Styling for buttons in the left section (e.g., "Change Avatar") */
+.left_section button {
+    align-self: center;
+    width: 100%;
+    height: fit-content;
+    padding: 0.6rem 0.5rem;
+    /* High-contrast white/light-gray button style */
+    background: linear-gradient(90deg, #ffffff, #d4d4d4);
+    color: #000000;
+    margin-top: 1rem;
+    font-size: 1rem; /* Adjusted for consistency */
+    font-weight: 700;
+    outline: none;
+    border: none;
+    border-radius: 8px; /* Consistent border-radius */
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.left_section button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Right section for user details and inputs */
+.right_section {
+    width: 70%;
+    flex-grow: 1; /* Allow this section to grow and fill space */
+}
+
+/* Styling for all inputs and textareas in the right section */
+.right_section input,
+.right_section textarea {
+    width: 100%; /* Make inputs fill their container */
+    font-size: 1rem;
+    padding: 0.75rem 1rem; /* More generous padding */
+    margin-bottom: 1rem; /* Add space between fields */
+    outline: none;
+    /* Using the same dark, sleek input style */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border-radius: 8px; /* Consistent border-radius */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.right_section input:focus,
+.right_section textarea:focus {
+    /* The clean, white glow on focus */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.right_section textarea {
+    min-height: 120px; /* Give textarea a decent default height */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+
+/* Main action button, e.g., "Update Profile" */
+.updateProfileBtn {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.8rem 1.5rem; /* Make it a bit larger */
+    /* Using the same striking white button style */
+    background: linear-gradient(90deg, #ffffff, #d4d4d4);
+    color: #000000;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block; /* Use block and margin-left to push to the right */
+    margin-left: auto; /* This is a better way to align right */
+    margin-right: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.updateProfileBtn:hover {
+    transform: translateY(-3px) scale(1.03); /* Add a subtle lift */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Monochrome Progress Bar */
 .progress-bar {
     width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 5px;
+    /* A dark, semi-transparent track for the progress bar */
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
     margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .progress {
     height: 20px;
-    background-color: #76c7c0;
-    border-radius: 5px;
+    /* The progress fill is pure white for maximum contrast */
+    background-color: #ffffff;
+    border-radius: 8px;
     text-align: center;
-    color: white;
+    /* Text inside the progress bar should be black */
+    color: #000000;
+    font-weight: 700;
+    /* A subtle transition for when the progress value changes */
+    transition: width 0.5s ease-in-out;
 }

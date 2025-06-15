@@ -1,57 +1,141 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Nunito", sans-serif;
+    overflow: hidden; /* Keeps the layout clean for a single-page view */
+}
+
+/* 🔥 Monochromatic Animated Background */
 .container {
-    width:100%;
+    width: 100%;
+    height: 100vh;
+    /* Swapped the color gradient for a subtle, dark monochrome one */
+    background: linear-gradient(-45deg, #000000, #1a1a1a, #2b2b2b, #000000);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: url('../assets/chatbg.jpg') center/cover no-repeat;
-    color:white
+    color: #ffffff; /* Default text color to pure white for high contrast */
 }
 
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 💎 Dark Frosted Card with Enhanced Shadow */
 .glassmorphism {
-    background: rgba(219, 218, 218, 0.15);
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
-    padding: 2rem 0;
-    width: 30vw;
-    height:fit-content;
+    /* Darker, less transparent background for a moodier feel */
+    background: rgba(10, 10, 10, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    width: 90%;
+    max-width: 400px;
+    /* A more defined border and a deeper, softer shadow */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
 }
 
+.glassmorphism:hover {
+    transform: translateY(-8px); /* A slightly more noticeable lift */
+    /* On hover, it gets a white "aura" or glow */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+/* 📥 Form Group */
 .form-group {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width:80%;
-    margin:0px auto;
-    margin-bottom: 1rem;
-    margin-top: 2rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
 }
 
-.form-group input{
-    padding:2px 10px;
-    width:80%;
-    height:2rem;
+/* 🧠 Sleek Input Fields with White Glow */
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
     margin-bottom: 1rem;
-    font-family: "Nunito";
-    font-size: 1.2rem;
-    outline:none;
-    border-radius: 10px;
-    color:black ;
-    font-weight: 800;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    /* Darker input background */
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    outline: none;
+    /* A subtle inset shadow for depth */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.form-group input:focus {
+    /* Replaced the color glow with a clean, white glow */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* 🚀 High-Contrast Button with Shadow Pop */
 .logBtn {
-    background-color: #4CAF50;
-    color: white !important;
+    width: 80%;
+    padding: 12px 20px; /* Slightly more padding */
+    font-size: 1rem;
+    font-weight: 700;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    /* Switched to a grayscale gradient for a striking look */
+    background: linear-gradient(90deg, #ffffff, #d4d4d4);
+    color: #000000; /* Black text for readability */
     cursor: pointer;
+    /* Shadow that makes the button pop from the dark card */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.link{
-    color:rgb(108, 108, 236)
-    
+.logBtn:hover {
+    transform: scale(1.05);
+    /* Shadow intensifies to give a "lifting" effect */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* 🔗 Clean & Simple Link Style */
+.link {
+    /* A subtle, light gray for the link */
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    /* On hover, link becomes pure white and underlines */
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* 📱 Responsive (No changes needed here, but kept for completeness) */
+@media screen and (max-width: 480px) {
+    .glassmorphism {
+        padding: 2rem 1rem;
+        width: 90%;
+    }
+
+    .form-group input {
+        font-size: 1rem;
+    }
+
+    .logBtn {
+        font-size: 0.95rem;
+    }
 }

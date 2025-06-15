@@ -6,6 +6,8 @@ const { createServer } = require('http');
 const chatRouter = require('./routers/chatRouter');
 const msgRouter = require('./routers/msgRouter');
 const paymentRouter=require('./routers/paymentRouter');
+const pdfRouter=require('./routers/pdfRouter');
+const client=require('./postgresDb/connection');
 const authMiddleware = require('./middlewares/authToken');
 const cookieParser = require("cookie-parser")
 const cors = require('cors');
@@ -15,10 +17,7 @@ const port = process.env.PORT || 10000;
 
 require('dotenv').config()
 
-//Monogdb Connection
-mongoose.connect(process.env.MONGO_URL)
-    .then((success) => console.log('Database connected!'))
-    .catch((err) => console.log(err));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -35,6 +34,7 @@ app.use('/api/user', userRouter);
 app.use('/api/payment',paymentRouter);
 app.use('/api/chat', authMiddleware, chatRouter);
 app.use('/api/msg', authMiddleware, msgRouter);
+app.use('/api/pdf',pdfRouter)
 app.get('/',(req,res)=> res.send('Hello!'));
 //app.listen(port,()=>{
 //    console.log('Server is running!');
@@ -54,6 +54,16 @@ const io = new Server(server, {
 })
 
 server.listen(port, () => {
+
+    //Monogdb Connection
+mongoose.connect(process.env.MONGO_URL)
+    .then((success) => console.log('MongoDb connected!'))
+    .catch((err) => console.log(err));
+
+    //Pg Connection
+    client.connect()
+    .then(() => console.log('Postgres Database connected!'))
+    .catch((err) => console.log(err));
     console.log(`Server is running! ${port}`);
 })
 

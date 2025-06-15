@@ -22,8 +22,8 @@ function App() {
             <Route path='/chat' element={<Chat />} />
             <Route path='/creategroup' element={<Groupinfo/>}></Route>
             <Route path='/renamegroup' element={<RenamegroupInfo/>}></Route>
-            <Route path='/videochat' element={<VideoRoom/>}></Route>
-            <Route path='/payment' element={<PaymentGateway/>}></Route>
+            {/* <Route path='/videochat' element={<VideoRoom/>}></Route> */}
+            {/* <Route path='/payment' element={<PaymentGateway/>}></Route> */}
           </Routes>
         </BrowserRouter>
       </PersistGate>
