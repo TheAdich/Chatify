@@ -5,7 +5,7 @@ import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase
 import { v4 } from "uuid";
 import axios from 'axios';
 
-const Profile = ({ user }) => {
+const Profile = ({ user,setProfilePageopen }) => {
     const token = sessionStorage.getItem('jwt');
     const [username, setUsername] = useState(user.name);
     const [email, setEmail] = useState(user.email);
@@ -120,7 +120,7 @@ const Profile = ({ user }) => {
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-8">
                     <button 
-                        onClick={() => window.location.href = '/chat'}
+                        onClick={() =>setProfilePageopen(false)}
                         className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 hover:scale-105"
                     >
                         <ArrowLeft className="w-6 h-6 text-white" />

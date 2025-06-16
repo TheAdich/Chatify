@@ -3,6 +3,7 @@ import { Users, ArrowLeft, Plus, Check, AlertCircle } from 'lucide-react';
 import AddUser from '../components/Chatify/Adduser';
 import axios from 'axios';
 import '../staticCss/groupInfo.css'
+import { NavLink } from 'react-router-dom';
 
 const GroupInfo = () => {
   const [members, setMembers] = useState([]);
@@ -94,12 +95,12 @@ const GroupInfo = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <button 
-            onClick={() => window.location.href = '/chat'}
+          <NavLink 
+            to='/chat'
             className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 hover:scale-105"
           >
             <ArrowLeft className="w-6 h-6 text-white" />
-          </button>
+          </NavLink>
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Create New Group</h1>
             <p className="text-gray-400">Add members and set up your group chat</p>

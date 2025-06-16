@@ -17,13 +17,13 @@ const Header = ({ user, setProfilePageopen }) => {
         {/* Navigation Toolbar */}
         <div className="flex items-center gap-4">
           {/* Navigation Links */}
-          {/* <NavLink 
-            to='/videochat'
+          <NavLink 
+            to='/ragpdf'
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all duration-300 hover:scale-105 text-sm font-medium"
           >
-            <Video className="w-4 h-4" />
-            <span className="hidden md:inline">Video Call</span>
-          </NavLink> */}
+            
+            <span className="hidden md:inline">PDF BOT</span>
+          </NavLink>
 
           <NavLink 
             to='/creategroup'

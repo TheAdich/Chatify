@@ -80,7 +80,7 @@ const Chat =  () => {
                 {msg}
             </Alert> : "" : ""}
     <Header user={user} setProfilePageopen={setProfilePageopen}/>
-    {profilePageopen? <Profile user={user} style={profileStyle}/>:""}
+    {profilePageopen? <Profile user={user} style={profileStyle} setProfilePageopen={setProfilePageopen}/>:""}
    
     <div className='chat_window'>
         <Sidebar chat={chat} setGetid={setGetid} setSearchBox={setSearchBox} user={user} socket={socket}/>

@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './redux/store';
 import RenamegroupInfo from './pages/RenamegroupInfo';
+import RagPdf from './pages/rag_pdf';
 import VideoRoom from './pages/VideoRoom';
 import PaymentGateway from './pages/PaymentGateway';
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='/chat' element={<Chat />} />
             <Route path='/creategroup' element={<Groupinfo/>}></Route>
             <Route path='/renamegroup' element={<RenamegroupInfo/>}></Route>
+            <Route path='/ragpdf' element={<RagPdf/>}></Route>
             {/* <Route path='/videochat' element={<VideoRoom/>}></Route> */}
             {/* <Route path='/payment' element={<PaymentGateway/>}></Route> */}
           </Routes>

@@ -7,7 +7,7 @@ const chatRouter = require('./routers/chatRouter');
 const msgRouter = require('./routers/msgRouter');
 const paymentRouter=require('./routers/paymentRouter');
 const pdfRouter=require('./routers/pdfRouter');
-const client=require('./postgresDb/connection');
+const pool=require('./postgresDb/connection');
 const authMiddleware = require('./middlewares/authToken');
 const cookieParser = require("cookie-parser")
 const cors = require('cors');
@@ -34,7 +34,7 @@ app.use('/api/user', userRouter);
 app.use('/api/payment',paymentRouter);
 app.use('/api/chat', authMiddleware, chatRouter);
 app.use('/api/msg', authMiddleware, msgRouter);
-app.use('/api/pdf',pdfRouter)
+app.use('/api/pdf',authMiddleware,pdfRouter)
 app.get('/',(req,res)=> res.send('Hello!'));
 //app.listen(port,()=>{
 //    console.log('Server is running!');
@@ -61,7 +61,7 @@ mongoose.connect(process.env.MONGO_URL)
     .catch((err) => console.log(err));
 
     //Pg Connection
-    client.connect()
+    pool.connect()
     .then(() => console.log('Postgres Database connected!'))
     .catch((err) => console.log(err));
     console.log(`Server is running! ${port}`);
